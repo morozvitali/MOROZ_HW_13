@@ -17,9 +17,11 @@ public class FileNavigator {
         }
         List<FileData> files = fileMap.get(path);
 
-        // перевірка консистентності шляху
-        if (!getKey(path).equals(getKey(fileData.getPath()))) {
-            System.out.println("Помилка: шлях-ключ і шлях до файлу не співпадають!");
+        // Перевірка консистентності
+        String key = getKey(path);
+        if (!key.equals(fileData.getPath())) {
+            System.out.println("Помилка: неможливо додати файл зі шляхом " + fileData.getPath() +
+                    ", оскільки шлях-ключ картки файлів для цього файлу - " + key);
             return;
         }
 
@@ -29,6 +31,7 @@ public class FileNavigator {
     private String getKey(String path) {
         return path;
     }
+
 
     /*
      * У методі add ми перевіряємо, чи є відповідний шлях у карті файлів.
