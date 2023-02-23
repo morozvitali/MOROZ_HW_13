@@ -1,3 +1,5 @@
+package src.main.java.hillel.hw;
+
 public class FileData {
     private String name;
     private long size;

@@ -1,3 +1,5 @@
+package src.main.java.hillel.hw;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
