@@ -10,7 +10,7 @@ public class FileNavigator {
         fileMap = new HashMap<>();
     }
 
-    public void add(FileData fileData) {
+    public void add (FileData fileData) {
         String path = fileData.getPath();
         if (!fileMap.containsKey(path)) {
             fileMap.put(path, new ArrayList<>());
