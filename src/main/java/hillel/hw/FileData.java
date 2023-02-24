@@ -34,4 +34,13 @@ public class FileData {
     public void setPath(String path) {
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "FileData{" +
+                "name='" + name + '\'' +
+                ", size=" + size +
+                ", path='" + path + '\'' +
+                '}';
+    }
 }

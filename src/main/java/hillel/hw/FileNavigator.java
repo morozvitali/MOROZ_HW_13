@@ -4,46 +4,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FileNavigator {
-    private final Map<String, List<FileData>> fileMap;
-
+    private Map<String, List<FileData>> fileMap;
     public FileNavigator() {
         fileMap = new HashMap<>();
     }
 
-    public void add (FileData fileData) {
+    public void add(FileData fileData) {
         String path = fileData.getPath();
-        if (!fileMap.containsKey(path)) {
-            fileMap.put(path, new ArrayList<>());
-        }
-        List<FileData> files = fileMap.get(path);
+        String name = fileData.getName();
+        List<FileData> files = fileMap.computeIfAbsent(path, k -> new ArrayList<>());
 
-        // Перевірка консистентності
-        String key = getKey(path);
-        if (!key.equals(fileData.getPath())) {
-            System.out.println("Помилка: неможливо додати файл зі шляхом " + fileData.getPath() +
-                    ", оскільки шлях-ключ картки файлів для цього файлу - " + key);
-            return;
-        }
+        boolean hasDuplicateFile = files.stream()
+                .anyMatch(f -> f.getName().equals(name) && f.getPath().equals(path));
 
-        files.add(fileData);
+        if (!hasDuplicateFile) {
+            files.add(fileData);
+        }
+        else {
+            System.out.println("Спроба додати файл з тим самим ім'ям");
+            System.out.println("Помилка: файл " + fileData.getName() + " вже існує по вказаному шляху " + fileData.getPath());
+        }
     }
 
-    private String getKey(String path) {
-        return path;
-    }
+        public List<FileData> find(String path) {
+            System.out.println("Шукаємо файли за шляхом: метод find() ");
 
-
-    /*
-     * У методі add ми перевіряємо, чи є відповідний шлях у карті файлів.
-     * Якщо ні, ми створюємо новий список файлів та додаємо його до картки.
-     * Потім ми отримуємо список файлів карти та додаємо до нього новий файл.
-
-     * перевірити консистентність шляху, пов'язаного з файлом, та шляху-ключа,
-     * що веде до списку файлів. Якщо вони не співпадають,
-     * видаляти файл із списку та виводити повідомлення про помилку у консоль.
-     */
-
-    public List<FileData> find(String path) {
         if (fileMap.containsKey(path)) {
             return fileMap.get(path);
         } else {
@@ -51,41 +36,31 @@ public class FileNavigator {
         }
     }
 
-    /*
-     * Метод find просто повертає список файлів, пов'язаних з вказаним шляхом.
-     * Якщо шлях не знайдено в карті, повертаємо порожній список.
-     */
-
     public List<FileData> filterBySize(String path, long maxSize) {
+        System.out.println("Фільтруємо за розміром: метод filterBySize() ");
         List<FileData> files = find(path);
         return files.stream()
                 .filter(f -> f.getSize() <= maxSize)
                 .collect(Collectors.toList());
     }
 
-    /*
-     * Метод filterBySize також використовує метод find для отримання списку файлів для заданого шляху.
-     * Потім ми застосовуємо фільтр за розміром, виключаючи файли, розмір яких більше, ніж передане значення maxSize.
-     * Нарешті, ми повертаємо список відфільтрованих файлів.
-     */
-
     public void remove(String path) {
+        System.out.println("Видаляємо шлях: метод remove() ");
         fileMap.remove(path);
     }
 
-    /*
-     * Метод remove просто видаляє вказаний шлях з картки файлів.
-     */
-
     public List<FileData> sortBySize() {
+        System.out.println("Сортуємо за розміром: метод sortBySize() ");
         List<FileData> files = new ArrayList<>();
         fileMap.values().forEach(files::addAll);
         files.sort(Comparator.comparingLong(FileData::getSize));
         return files;
     }
 
-        /*
-          Метод sortBySize отримує всі файли з картки файлів, додаючи їх до списку.
-          Потім ми сортуємо цей список за розміром
-         */
+    @Override
+    public String toString() {
+        return "FileNavigator{" +
+                "fileMap=" + fileMap +
+                '}';
+    }
 }
