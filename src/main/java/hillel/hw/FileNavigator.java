@@ -49,8 +49,6 @@ public class FileNavigator {
 
 
     public List<FileData> find(String path) {
-        System.out.println("Шукаємо файли за шляхом: метод find() ");
-
         if (fileMap.containsKey(path)) {
             return fileMap.get(path);
         } else {
