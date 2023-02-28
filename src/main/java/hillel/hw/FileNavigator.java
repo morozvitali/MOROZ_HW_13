@@ -1,5 +1,6 @@
 package src.main.java.hillel.hw;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ public class FileNavigator {
         fileMap = new HashMap<>();
     }
 
-    public void add(FileData fileData) {
+    public void addToHashMap(FileData fileData) {
         String path = fileData.getPath();
         String name = fileData.getName();
         List<FileData> files = fileMap.computeIfAbsent(path, k -> new ArrayList<>());
@@ -25,6 +26,32 @@ public class FileNavigator {
             System.out.println("Помилка: файл " + fileData.getName() + " вже існує по вказаному шляху " + fileData.getPath());
         }
     }
+
+
+    public void add(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            String directoryPath = file.getParent();
+            FileData fileData = new FileData(file.getName(), file.length(), directoryPath);
+            addToHashMap(fileData);
+        } else if (file.isDirectory()) {
+//
+//           // File dir = new File(path);
+//
+//         File [] filesPath =     File[] listFiles();
+//
+//            for (File dirFile : dir.listFiles()) {
+//
+//                    FileData fileData = new FileData(dirFile.getName(), dirFile.length(), dirFile.getPath());
+//                        addToHashMap(fileData);
+//            }
+//        } else {
+//            System.out.println("Шлях " + path +" не існує");
+//        }
+        }
+    }
+
+
 
         public List<FileData> find(String path) {
             System.out.println("Шукаємо файли за шляхом: метод find() ");
