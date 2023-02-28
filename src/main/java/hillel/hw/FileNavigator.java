@@ -11,8 +11,12 @@ public class FileNavigator {
     }
 
     public void addToHashMap(FileData fileData) {
+
+
         String path = fileData.getPath();
         String name = fileData.getName();
+       /////////////////// wtf  if (fileData.getPath().endsWith("\\")) return;
+
         List<FileData> files = fileMap.computeIfAbsent(path, k -> new ArrayList<>());
 
         boolean hasDuplicateFile = files.stream()
@@ -26,8 +30,6 @@ public class FileNavigator {
             System.out.println("Помилка: файл " + fileData.getName() + " вже існує по вказаному шляху " + fileData.getPath());
         }
     }
-
-
     public void add(String path) {
         File file = new File(path);
         if (file.exists()) {
@@ -35,21 +37,14 @@ public class FileNavigator {
             FileData fileData = new FileData(file.getName(), file.length(), directoryPath);
             addToHashMap(fileData);
         } else if (file.isDirectory()) {
-//
-//           // File dir = new File(path);
-//
-//         File [] filesPath =     File[] listFiles();
-//
-//            for (File dirFile : dir.listFiles()) {
-//
-//                    FileData fileData = new FileData(dirFile.getName(), dirFile.length(), dirFile.getPath());
-//                        addToHashMap(fileData);
-//            }
-//        } else {
-//            System.out.println("Шлях " + path +" не існує");
-//        }
+                    for (File f : file.listFiles()) {
+                        FileData fileData = new FileData(f.getName(), f.length(), f.getPath());
+                        addToHashMap(fileData);
+                    }
+                } else {
+            System.out.println("Шлях " + path +" не існує");
+            }
         }
-    }
 
 
 

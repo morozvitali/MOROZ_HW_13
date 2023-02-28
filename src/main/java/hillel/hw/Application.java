@@ -15,11 +15,11 @@ public class Application {
 
         FileNavigator fileNavigator = new FileNavigator();
 
-//        fileNavigator.add(".\\resourses\\0\\txt0.txt");
-//        fileNavigator.add(".\\resourses\\1\\txt1.txt");
-//        fileNavigator.add(".\\resourses\\1\\txt2.txt");
-//        fileNavigator.add(".\\resourses\\2\\txt3.txt");
-//        fileNavigator.add(".\\resourses\\2\\txt4.txt");
+        fileNavigator.add(".\\resourses\\0\\txt0.txt");
+        fileNavigator.add(".\\resourses\\1\\txt1.txt");
+        fileNavigator.add(".\\resourses\\1\\txt2.txt");
+        fileNavigator.add(".\\resourses\\2\\txt3.txt");
+        fileNavigator.add(".\\resourses\\2\\txt4.txt");
 //        fileNavigator.add(".\\resourses\\2\\txt10.txt");
 //        fileNavigator.add(".\\resourses\\2\\txt11.txt");
 //        fileNavigator.add(".\\resourses\\2\\txt12.txt");
@@ -31,7 +31,7 @@ public class Application {
 //        fileNavigator.add(".\\resourses\\2\\txt12.txt");
 //        fileNavigator.add(".\\resourses\\2\\txt12.txt");
         // додаємо директорію
-        fileNavigator.add(".\\resourses\\2");
+        fileNavigator.add(".\\resourses\\2\\");
 
 
         //спроба додати дублікат
